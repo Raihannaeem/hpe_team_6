@@ -1,0 +1,13 @@
+min_output_voltage   (Preferebly Same 1-3% change allowed)
+max_output_voltage   
+max_output_current   (Higher the better 1.2 - 1.5x)
+dropout_voltage (Lower the better, Acceptible upto 1.5x)
+min_input_voltage   (Lower)
+max_input_voltage  (Higher)  (Wider Range)
+quiescent_current (Lower the better, Acceptible upto 3x)
+thermal resistance (Lower the better, acceptible upto 1.5x)
+min_junction_temperature
+max_junction_temperature   (Wider range)
+PSSR (Power Supply Rejection Ratio) (Higher the better Acceptible upto 0.7x)
+Stock (Availability check)
+Price (Preferably lower)

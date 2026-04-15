@@ -1,0 +1,53 @@
+{
+  "pdf_hash": "2e544c4c3c0b1427ec64d3b0192db07adc8ca2d68e783c6e1967d43a0dec4c31",
+  "filename": "21374D.pdf",
+  "part_name": "TC1263",
+  "manufacturer": "Microchip Technology Inc.",
+  "component_type": "LDO Regulator",
+  "total_pages": 18,
+  "extracted_at": "2026-04-14T06:13:40.683813",
+  "specs": {
+    "Input Voltage (Vin)": {
+      "value": "2.7V to 6.0V",
+      "source": "text_llm"
+    },
+    "Output Voltage (Vout)": {
+      "value": "2.5V, 2.8V, 3.0V, 3.3V, 5.0V",
+      "source": "text_llm"
+    },
+    "Output Current (Iout)": {
+      "value": "500mA",
+      "source": "text_llm"
+    },
+    "Dropout Voltage": {
+      "value": "20mV to 650mV",
+      "source": "text_llm"
+    },
+    "Quiescent Current (Iq)": {
+      "value": "80\u00b5A",
+      "source": "text_llm"
+    }
+  },
+  "extra_specs": {
+    "Line Regulation": {
+      "value": "0.05 %",
+      "source": "dynamic_llm"
+    },
+    "Load Regulation": {
+      "value": "0.002 %/mA",
+      "source": "dynamic_llm"
+    },
+    "Power Supply Rejection Ratio": {
+      "value": "64 db",
+      "source": "dynamic_llm"
+    },
+    "Output Noise": {
+      "value": "260 nV/\u221aHz",
+      "source": "dynamic_llm"
+    },
+    "Thermal Regulation": {
+      "value": "0.04 V/W",
+      "source": "dynamic_llm"
+    }
+  }
+}
