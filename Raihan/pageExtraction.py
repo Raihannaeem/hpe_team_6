@@ -5,7 +5,7 @@ from mistralai.client import Mistral
 import json
 
 def send_to_mistral(text):
-    with Mistral(api_key="HW5It1vbUOY3DefE8mFyRMsKoCqL28Dw") as mistral:
+    with Mistral(api_key=os.getenv("MISTRAL_API_KEY")) as mistral:
 
         # res = mistral.models.list()
         # print(res)
