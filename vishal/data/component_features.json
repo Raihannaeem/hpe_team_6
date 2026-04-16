@@ -1,0 +1,12 @@
+{
+  "Audio Codec": [
+    "SNR",
+    "THD",
+    "Sampling Rate",
+    "Resolution",
+    "Power Consumption",
+    "Supply Voltage",
+    "Digital Interface",
+    "Control Interface"
+  ]
+}
