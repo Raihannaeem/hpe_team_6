@@ -1,0 +1,53 @@
+{
+  "pdf_hash": "03631e58b412bfd0a181b235a02428f8d81d3a9bab48206e89ac916c43935c7f",
+  "filename": "testSheet.pdf",
+  "part_name": "TPS76201",
+  "manufacturer": "Texas Instruments",
+  "component_type": "LDO Regulator",
+  "total_pages": 17,
+  "extracted_at": "2026-04-14T06:17:27.052420",
+  "specs": {
+    "Input Voltage (Vin)": {
+      "value": "2.7 V to 10 V",
+      "source": "text_llm"
+    },
+    "Output Voltage (Vout)": {
+      "value": "0.7 V to 5.5 V",
+      "source": "text_llm"
+    },
+    "Output Current (Iout)": {
+      "value": "100 mA",
+      "source": "text_llm"
+    },
+    "Dropout Voltage": {
+      "value": "null",
+      "source": "text_llm"
+    },
+    "Quiescent Current (Iq)": {
+      "value": "23 \u00b5A",
+      "source": "text_llm"
+    }
+  },
+  "extra_specs": {
+    "Operating Junction Temperature Range": {
+      "value": "-40\u00b0C to 125\u00b0C",
+      "source": "dynamic_llm"
+    },
+    "Package Type": {
+      "value": "SOT-23 (DBV)",
+      "source": "dynamic_llm"
+    },
+    "Number of Pins": {
+      "value": "5",
+      "source": "dynamic_llm"
+    },
+    "Quiescent Current in Standby Mode": {
+      "value": "1 \u00b5A",
+      "source": "dynamic_llm"
+    },
+    "Output Noise Voltage": {
+      "value": "60 \u00b5VRMS",
+      "source": "dynamic_llm"
+    }
+  }
+}

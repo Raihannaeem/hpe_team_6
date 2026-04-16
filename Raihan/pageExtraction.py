@@ -3,6 +3,7 @@ import PyPDF2
 import fitz  # PyMuPDF
 from mistralai.client import Mistral
 import json
+import os
 
 def send_to_mistral(text):
     with Mistral(api_key=os.getenv("MISTRAL_API_KEY")) as mistral:

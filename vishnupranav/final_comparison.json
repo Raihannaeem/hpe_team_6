@@ -1,0 +1,685 @@
+{
+  "original_score": 108,
+  "results": [
+    {
+      "description": "IC REG LINEAR 5V 500MA 6-WSON",
+      "feature_comparison": {
+        "vout": {
+          "original": 5.0,
+          "candidate": 5.0,
+          "score": 20
+        },
+        "iout": {
+          "original": 500.0,
+          "candidate": 500.0,
+          "score": 20
+        },
+        "dropout": {
+          "original": 650.0,
+          "candidate": 0.33,
+          "score": 20
+        },
+        "vin": {
+          "original": 6.0,
+          "candidate": 18.0,
+          "score": 15
+        },
+        "iq": {
+          "original": 80.0,
+          "candidate": 4.5,
+          "score": 15
+        },
+        "psrr": {
+          "original": null,
+          "candidate": 75.0,
+          "score": 10
+        },
+        "temp": {
+          "original": [
+            null,
+            null
+          ],
+          "candidate": [
+            -40,
+            125
+          ],
+          "score": 5
+        },
+        "price": {
+          "original": null,
+          "candidate": 1.04,
+          "score": 3
+        },
+        "stock": {
+          "original": null,
+          "candidate": 9269,
+          "score": 3
+        },
+        "thermal_resistance": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "package": {
+          "original": null,
+          "candidate": "6-WDFN Exposed Pad",
+          "score": 5
+        }
+      },
+      "total_score": 121,
+      "delta": 13
+    },
+    {
+      "description": "IC REG LINEAR 5V 500MA SOT-223-4",
+      "feature_comparison": {
+        "vout": {
+          "original": 5.0,
+          "candidate": 5.0,
+          "score": 20
+        },
+        "iout": {
+          "original": 500.0,
+          "candidate": 500.0,
+          "score": 20
+        },
+        "dropout": {
+          "original": 650.0,
+          "candidate": 2.0,
+          "score": 20
+        },
+        "vin": {
+          "original": 6.0,
+          "candidate": 25.0,
+          "score": 15
+        },
+        "iq": {
+          "original": 80.0,
+          "candidate": null,
+          "score": 0
+        },
+        "psrr": {
+          "original": null,
+          "candidate": 80.0,
+          "score": 10
+        },
+        "temp": {
+          "original": [
+            null,
+            null
+          ],
+          "candidate": [
+            0,
+            125
+          ],
+          "score": 5
+        },
+        "price": {
+          "original": null,
+          "candidate": 0.73,
+          "score": 7
+        },
+        "stock": {
+          "original": null,
+          "candidate": 12937,
+          "score": 5
+        },
+        "thermal_resistance": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "package": {
+          "original": null,
+          "candidate": "TO-261-4, TO-261AA",
+          "score": 5
+        }
+      },
+      "total_score": 112,
+      "delta": 4
+    },
+    {
+      "description": "IC REG LINEAR 5V 500MA SOT-223-4",
+      "feature_comparison": {
+        "vout": {
+          "original": 5.0,
+          "candidate": 5.0,
+          "score": 20
+        },
+        "iout": {
+          "original": 500.0,
+          "candidate": 500.0,
+          "score": 20
+        },
+        "dropout": {
+          "original": 650.0,
+          "candidate": 2.0,
+          "score": 20
+        },
+        "vin": {
+          "original": 6.0,
+          "candidate": 25.0,
+          "score": 15
+        },
+        "iq": {
+          "original": 80.0,
+          "candidate": null,
+          "score": 0
+        },
+        "psrr": {
+          "original": null,
+          "candidate": 80.0,
+          "score": 10
+        },
+        "temp": {
+          "original": [
+            null,
+            null
+          ],
+          "candidate": [
+            -40,
+            125
+          ],
+          "score": 5
+        },
+        "price": {
+          "original": null,
+          "candidate": 0.62,
+          "score": 7
+        },
+        "stock": {
+          "original": null,
+          "candidate": 1555,
+          "score": 3
+        },
+        "thermal_resistance": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "package": {
+          "original": null,
+          "candidate": "TO-261-4, TO-261AA",
+          "score": 5
+        }
+      },
+      "total_score": 110,
+      "delta": 2
+    },
+    {
+      "description": "IC REG LINEAR 5V 500MA DPAK",
+      "feature_comparison": {
+        "vout": {
+          "original": 5.0,
+          "candidate": 5.0,
+          "score": 20
+        },
+        "iout": {
+          "original": 500.0,
+          "candidate": 500.0,
+          "score": 20
+        },
+        "dropout": {
+          "original": 650.0,
+          "candidate": null,
+          "score": 0
+        },
+        "vin": {
+          "original": 6.0,
+          "candidate": 35.0,
+          "score": 15
+        },
+        "iq": {
+          "original": 80.0,
+          "candidate": 6.0,
+          "score": 15
+        },
+        "psrr": {
+          "original": null,
+          "candidate": 62.0,
+          "score": 7
+        },
+        "temp": {
+          "original": [
+            null,
+            null
+          ],
+          "candidate": [
+            0,
+            150
+          ],
+          "score": 5
+        },
+        "price": {
+          "original": null,
+          "candidate": 0.35,
+          "score": 10
+        },
+        "stock": {
+          "original": null,
+          "candidate": 34509,
+          "score": 5
+        },
+        "thermal_resistance": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "package": {
+          "original": null,
+          "candidate": "TO-252-3, DPAK (2 Leads + Tab), SC-63",
+          "score": 5
+        }
+      },
+      "total_score": 107,
+      "delta": -1
+    },
+    {
+      "description": "IC REG LINEAR 5V 500MA DPAK",
+      "feature_comparison": {
+        "vout": {
+          "original": 5.0,
+          "candidate": 5.0,
+          "score": 20
+        },
+        "iout": {
+          "original": 500.0,
+          "candidate": 500.0,
+          "score": 20
+        },
+        "dropout": {
+          "original": 650.0,
+          "candidate": null,
+          "score": 0
+        },
+        "vin": {
+          "original": 6.0,
+          "candidate": 35.0,
+          "score": 15
+        },
+        "iq": {
+          "original": 80.0,
+          "candidate": 6.0,
+          "score": 15
+        },
+        "psrr": {
+          "original": null,
+          "candidate": 62.0,
+          "score": 7
+        },
+        "temp": {
+          "original": [
+            null,
+            null
+          ],
+          "candidate": [
+            -40,
+            125
+          ],
+          "score": 5
+        },
+        "price": {
+          "original": null,
+          "candidate": 0.4,
+          "score": 10
+        },
+        "stock": {
+          "original": null,
+          "candidate": 11391,
+          "score": 5
+        },
+        "thermal_resistance": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "package": {
+          "original": null,
+          "candidate": "TO-252-3, DPAK (2 Leads + Tab), SC-63",
+          "score": 5
+        }
+      },
+      "total_score": 107,
+      "delta": -1
+    },
+    {
+      "description": "IC REG LINEAR 5V 500MA SOT-223",
+      "feature_comparison": {
+        "vout": {
+          "original": 5.0,
+          "candidate": 5.0,
+          "score": 20
+        },
+        "iout": {
+          "original": 500.0,
+          "candidate": 500.0,
+          "score": 20
+        },
+        "dropout": {
+          "original": 650.0,
+          "candidate": 0.7,
+          "score": 20
+        },
+        "vin": {
+          "original": 6.0,
+          "candidate": 26.0,
+          "score": 15
+        },
+        "iq": {
+          "original": 80.0,
+          "candidate": null,
+          "score": 0
+        },
+        "psrr": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "temp": {
+          "original": [
+            null,
+            null
+          ],
+          "candidate": [
+            -40,
+            125
+          ],
+          "score": 5
+        },
+        "price": {
+          "original": null,
+          "candidate": 0.97,
+          "score": 7
+        },
+        "stock": {
+          "original": null,
+          "candidate": 6086,
+          "score": 3
+        },
+        "thermal_resistance": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "package": {
+          "original": null,
+          "candidate": "TO-261-4, TO-261AA",
+          "score": 5
+        }
+      },
+      "total_score": 105,
+      "delta": -3
+    },
+    {
+      "description": "IC REG LINEAR 5V 500MA DPAK",
+      "feature_comparison": {
+        "vout": {
+          "original": 5.0,
+          "candidate": 5.0,
+          "score": 20
+        },
+        "iout": {
+          "original": 500.0,
+          "candidate": 500.0,
+          "score": 20
+        },
+        "dropout": {
+          "original": 650.0,
+          "candidate": null,
+          "score": 0
+        },
+        "vin": {
+          "original": 6.0,
+          "candidate": 35.0,
+          "score": 15
+        },
+        "iq": {
+          "original": 80.0,
+          "candidate": null,
+          "score": 0
+        },
+        "psrr": {
+          "original": null,
+          "candidate": 80.0,
+          "score": 10
+        },
+        "temp": {
+          "original": [
+            null,
+            null
+          ],
+          "candidate": [
+            -40,
+            125
+          ],
+          "score": 5
+        },
+        "price": {
+          "original": null,
+          "candidate": 0.41,
+          "score": 10
+        },
+        "stock": {
+          "original": null,
+          "candidate": 44291,
+          "score": 5
+        },
+        "thermal_resistance": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "package": {
+          "original": null,
+          "candidate": "TO-252-3, DPAK (2 Leads + Tab), SC-63",
+          "score": 5
+        }
+      },
+      "total_score": 95,
+      "delta": -13
+    },
+    {
+      "description": "IC REG LINEAR 5V 500MA DPAK",
+      "feature_comparison": {
+        "vout": {
+          "original": 5.0,
+          "candidate": 5.0,
+          "score": 20
+        },
+        "iout": {
+          "original": 500.0,
+          "candidate": 500.0,
+          "score": 20
+        },
+        "dropout": {
+          "original": 650.0,
+          "candidate": null,
+          "score": 0
+        },
+        "vin": {
+          "original": 6.0,
+          "candidate": 35.0,
+          "score": 15
+        },
+        "iq": {
+          "original": 80.0,
+          "candidate": null,
+          "score": 0
+        },
+        "psrr": {
+          "original": null,
+          "candidate": 80.0,
+          "score": 10
+        },
+        "temp": {
+          "original": [
+            null,
+            null
+          ],
+          "candidate": [
+            0,
+            125
+          ],
+          "score": 5
+        },
+        "price": {
+          "original": null,
+          "candidate": 0.42,
+          "score": 10
+        },
+        "stock": {
+          "original": null,
+          "candidate": 45033,
+          "score": 5
+        },
+        "thermal_resistance": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "package": {
+          "original": null,
+          "candidate": "TO-252-3, DPAK (2 Leads + Tab), SC-63",
+          "score": 5
+        }
+      },
+      "total_score": 95,
+      "delta": -13
+    },
+    {
+      "description": "IC REG LIN POS ADJ 500MA 8-DFN",
+      "feature_comparison": {
+        "vout": {
+          "original": 5.0,
+          "candidate": 0.8,
+          "score": 0
+        },
+        "iout": {
+          "original": 500.0,
+          "candidate": 500.0,
+          "score": 20
+        },
+        "dropout": {
+          "original": 650.0,
+          "candidate": 0.35,
+          "score": 20
+        },
+        "vin": {
+          "original": 6.0,
+          "candidate": 6.0,
+          "score": 10
+        },
+        "iq": {
+          "original": 80.0,
+          "candidate": 220.0,
+          "score": 10
+        },
+        "psrr": {
+          "original": null,
+          "candidate": 60.0,
+          "score": 7
+        },
+        "temp": {
+          "original": [
+            null,
+            null
+          ],
+          "candidate": [
+            -40,
+            125
+          ],
+          "score": 5
+        },
+        "price": {
+          "original": null,
+          "candidate": 0.71,
+          "score": 7
+        },
+        "stock": {
+          "original": null,
+          "candidate": 20475,
+          "score": 5
+        },
+        "thermal_resistance": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "package": {
+          "original": null,
+          "candidate": "8-VFDFN Exposed Pad",
+          "score": 5
+        }
+      },
+      "total_score": 94,
+      "delta": -14
+    },
+    {
+      "description": "IC REG LINEAR POS ADJ SOT-223-5",
+      "feature_comparison": {
+        "vout": {
+          "original": 5.0,
+          "candidate": 0.8,
+          "score": 0
+        },
+        "iout": {
+          "original": 500.0,
+          "candidate": 500.0,
+          "score": 20
+        },
+        "dropout": {
+          "original": 650.0,
+          "candidate": 0.35,
+          "score": 20
+        },
+        "vin": {
+          "original": 6.0,
+          "candidate": 6.0,
+          "score": 10
+        },
+        "iq": {
+          "original": 80.0,
+          "candidate": 220.0,
+          "score": 10
+        },
+        "psrr": {
+          "original": null,
+          "candidate": 60.0,
+          "score": 7
+        },
+        "temp": {
+          "original": [
+            null,
+            null
+          ],
+          "candidate": [
+            -40,
+            125
+          ],
+          "score": 5
+        },
+        "price": {
+          "original": null,
+          "candidate": 0.69,
+          "score": 7
+        },
+        "stock": {
+          "original": null,
+          "candidate": 5062,
+          "score": 3
+        },
+        "thermal_resistance": {
+          "original": null,
+          "candidate": null,
+          "score": 5
+        },
+        "package": {
+          "original": null,
+          "candidate": "SOT-223-6",
+          "score": 5
+        }
+      },
+      "total_score": 92,
+      "delta": -16
+    }
+  ]
+}
