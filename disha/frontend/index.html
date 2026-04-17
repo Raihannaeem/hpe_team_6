@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Component Alternative Finder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+<style>
+  /* ── Design: industrial/utilitarian — circuit-board dark ── */
+  :root {
+    --bg:        #0d0f14;
+    --surface:   #141820;
+    --surface2:  #1c2230;
+    --border:    #2a3348;
+    --accent:    #00e5b0;
+    --accent2:   #0099ff;
+    --warn:      #ffb800;
+    --danger:    #ff4d6a;
+    --text:      #e2e8f0;
+    --muted:     #6b7a99;
+    --mono:      'IBM Plex Mono', monospace;
+    --sans:      'IBM Plex Sans', sans-serif;
+    --radius:    6px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── Grid dot background ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: -1;
+    background-image:
+      radial-gradient(circle, #2a3348 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.5;
+  }
+
+  /* ── Layout ── */
+  .app { max-width: 900px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* ── Header ── */
+  header { margin-bottom: 36px; }
+  .logo-row {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 4px;
+  }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+  h1 {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .subtitle { color: var(--muted); font-size: 13px; }
+
+  /* ── Panel ── */
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .panel-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  /* ── JSON input area ── */
+  textarea {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 14px;
+    resize: vertical;
+    min-height: 240px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  textarea:focus { border-color: var(--accent); }
+  textarea.error-border { border-color: var(--danger); }
+
+  /* ── Options row ── */
+  .options-row {
+    display: flex; flex-wrap: wrap; gap: 16px;
+    align-items: center; margin-top: 14px;
+  }
+  .toggle-label {
+    display: flex; align-items: center; gap: 8px;
+    cursor: pointer; user-select: none; font-size: 13px; color: var(--text);
+  }
+  .toggle-label input[type=checkbox] {
+    width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer;
+  }
+  .select-wrap { display: flex; align-items: center; gap: 8px; }
+  .select-wrap label { color: var(--muted); font-size: 13px; }
+  select {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); color: var(--text);
+    font-family: var(--sans); font-size: 13px; padding: 6px 10px;
+    outline: none; cursor: pointer;
+  }
+
+  /* ── Run button ── */
+  .btn-run {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 16px;
+    background: var(--accent);
+    color: #000;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    border: none; border-radius: var(--radius);
+    padding: 10px 24px;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    letter-spacing: 0.04em;
+  }
+  .btn-run:hover { opacity: 0.88; }
+  .btn-run:active { transform: scale(0.98); }
+  .btn-run:disabled { opacity: 0.4; cursor: not-allowed; }
+  .btn-run .spinner {
+    width: 14px; height: 14px;
+    border: 2px solid rgba(0,0,0,0.3);
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+  .btn-run.loading .spinner { display: block; }
+  .btn-run.loading .btn-text { opacity: 0.7; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Status bar ── */
+  .status-bar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    border-radius: var(--radius);
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .status-bar.info  { background: rgba(0,153,255,0.1); border: 1px solid rgba(0,153,255,0.3); color: var(--accent2); }
+  .status-bar.ok    { background: rgba(0,229,176,0.08); border: 1px solid rgba(0,229,176,0.3); color: var(--accent); }
+  .status-bar.err   { background: rgba(255,77,106,0.08); border: 1px solid rgba(255,77,106,0.3); color: var(--danger); }
+  .status-bar.warn  { background: rgba(255,184,0,0.08); border: 1px solid rgba(255,184,0,0.3); color: var(--warn); }
+  .status-bar.visible { display: flex; }
+
+  /* ── Pipeline meta ── */
+  .meta-row {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px;
+  }
+  .meta-chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .meta-chip span { color: var(--text); }
+  .meta-chip.cached-chip { border-color: var(--warn); color: var(--warn); }
+
+  /* ── Results grid ── */
+  .results-header {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .part-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    position: relative;
+    transition: border-color 0.2s;
+    animation: fadeSlide 0.3s ease both;
+  }
+  .part-card:hover { border-color: var(--accent2); }
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .part-card:nth-child(1) { animation-delay: 0.05s; }
+  .part-card:nth-child(2) { animation-delay: 0.10s; }
+  .part-card:nth-child(3) { animation-delay: 0.15s; }
+  .part-card:nth-child(4) { animation-delay: 0.20s; }
+  .part-card:nth-child(5) { animation-delay: 0.25s; }
+
+  /* Rank badge */
+  .rank-badge {
+    position: absolute; top: -1px; left: -1px;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    border-radius: var(--radius) 0 var(--radius) 0;
+    color: #000;
+  }
+  .rank-1 { background: #ffd700; }
+  .rank-2 { background: #c0c0c0; }
+  .rank-3 { background: #cd7f32; }
+  .rank-4, .rank-5 { background: var(--surface2); color: var(--muted); }
+
+  /* Card header row */
+  .card-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 12px; padding-left: 22px;
+  }
+  .mpn {
+    font-family: var(--mono); font-size: 15px; font-weight: 600;
+    color: var(--accent); letter-spacing: 0.02em;
+  }
+  .manufacturer { font-size: 12px; color: var(--muted); margin-top: 1px; }
+
+  /* Score ring */
+  .score-ring {
+    flex-shrink: 0;
+    width: 56px; height: 56px;
+    position: relative;
+  }
+  .score-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .score-ring .track { fill: none; stroke: var(--surface2); stroke-width: 4; }
+  .score-ring .fill  { fill: none; stroke-width: 4; stroke-linecap: round;
+                       transition: stroke-dashoffset 0.6s ease; }
+  .score-ring .label {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 13px; font-weight: 600;
+  }
+
+  /* Description */
+  .card-desc {
+    font-size: 12px; color: var(--muted); margin-top: 8px;
+    padding-left: 22px; line-height: 1.5;
+  }
+
+  /* Score breakdown */
+  .score-breakdown {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; padding-left: 22px;
+  }
+  .score-pill {
+    padding: 2px 9px; border-radius: 12px;
+    font-family: var(--mono); font-size: 11px;
+    border: 1px solid;
+  }
+  .pill-elec  { border-color: rgba(0,229,176,0.4); color: var(--accent); background: rgba(0,229,176,0.05); }
+  .pill-stock { border-color: rgba(0,153,255,0.4); color: var(--accent2); background: rgba(0,153,255,0.05); }
+  .pill-price { border-color: rgba(255,184,0,0.4); color: var(--warn); background: rgba(255,184,0,0.05); }
+
+  /* Rationale */
+  .rationale {
+    font-size: 12px; color: var(--muted);
+    margin-top: 8px; padding-left: 22px;
+    border-left: 2px solid var(--border);
+    padding-left: 10px; margin-left: 22px;
+    font-style: italic;
+  }
+
+  /* Bottom row */
+  .card-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 14px; padding-left: 22px;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .price-stock {
+    display: flex; gap: 16px; align-items: center;
+  }
+  .price-val {
+    font-family: var(--mono); font-size: 16px; font-weight: 600; color: var(--text);
+  }
+  .price-val .currency { font-size: 11px; color: var(--muted); }
+  .stock-val {
+    font-size: 12px; color: var(--muted);
+  }
+  .stock-val .qty { color: var(--accent2); font-weight: 600; }
+
+  .btn-buy {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-family: var(--mono); font-size: 12px;
+    padding: 7px 16px; border-radius: var(--radius);
+    text-decoration: none; cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .btn-buy:hover {
+    background: var(--accent); color: #000;
+  }
+  .btn-buy svg { width: 12px; height: 12px; }
+
+  /* No-results / error states */
+  .empty-state {
+    text-align: center; padding: 48px 20px; color: var(--muted);
+  }
+  .empty-state .icon { font-size: 36px; margin-bottom: 10px; }
+  .empty-state p { font-size: 13px; }
+
+  /* ── Cache panel ── */
+  .cache-section { margin-top: 32px; }
+  .cache-entry {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+  }
+  .cache-entry:last-child { border-bottom: none; }
+  .cache-mpn { font-family: var(--mono); color: var(--text); }
+  .cache-meta { color: var(--muted); font-family: var(--mono); font-size: 11px; }
+  .btn-clear-cache {
+    background: transparent; border: 1px solid var(--danger);
+    color: var(--danger); font-family: var(--mono); font-size: 11px;
+    padding: 5px 12px; border-radius: var(--radius); cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-clear-cache:hover { background: rgba(255,77,106,0.1); }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .card-top { flex-direction: column; }
+    .score-ring { align-self: flex-end; margin-top: -44px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- Header -->
+  <header>
+    <div class="logo-row">
+      <div class="logo-icon">⚡</div>
+      <h1>COMPONENT FINDER</h1>
+    </div>
+    <p class="subtitle">Phase 3 + 4 · LLM-powered alternate part recommendation · Mouser API</p>
+  </header>
+
+  <!-- Input Panel -->
+  <div class="panel">
+    <div class="panel-title">// Component JSON Input (from Phase 2 output)</div>
+    <textarea id="json-input" placeholder='Paste structured component JSON here...'></textarea>
+    <div id="json-error" style="color:var(--danger);font-size:12px;margin-top:6px;display:none;"></div>
+
+    <div class="options-row">
+      <label class="toggle-label">
+        <input type="checkbox" id="llm-query" checked />
+        LLM query builder
+      </label>
+      <label class="toggle-label">
+        <input type="checkbox" id="require-stock" checked />
+        In-stock only
+      </label>
+      <div class="select-wrap">
+        <label>Top</label>
+        <select id="top-n">
+          <option value="5" selected>5</option>
+          <option value="3">3</option>
+          <option value="10">10</option>
+        </select>
+        <label>results</label>
+      </div>
+    </div>
+
+    <button class="btn-run" id="run-btn" onclick="runPipeline()">
+      <div class="spinner"></div>
+      <span class="btn-text">▶ RUN PIPELINE</span>
+    </button>
+  </div>
+
+  <!-- Status Bar -->
+  <div class="status-bar" id="status-bar"></div>
+
+  <!-- Results -->
+  <div id="results-section" style="display:none;">
+    <div class="meta-row" id="meta-row"></div>
+    <div class="results-header" id="results-header"></div>
+    <div id="results-list"></div>
+  </div>
+
+  <!-- Cache Panel -->
+  <div class="cache-section">
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div class="panel-title">// SQLite Cache (Phase 4)</div>
+        <button class="btn-clear-cache" onclick="clearCache()">✕ CLEAR</button>
+      </div>
+      <div id="cache-list"><div style="color:var(--muted);font-size:12px;padding:8px 0;">Loading cache…</div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const API_BASE = "";   // Same origin. Change to "http://localhost:8000" if running separately.
+
+// ── Prefill dummy JSON ────────────────────────────────────────────────────────
+const DUMMY_JSON = {
+  "component_name": "LM1117-3.3",
+  "component_type": "LDO Regulator",
+  "manufacturer": "Various",
+  "description": "3.3V linear regulator, 800mA, low dropout",
+  "electrical_specs": {
+    "input_voltage_min_V": 4.5,
+    "input_voltage_max_V": 20,
+    "output_voltage_fixed_V": 3.3,
+    "output_current_max_mA": 500,
+    "quiescent_current_uA": 500,
+    "dropout_voltage_typical_mV": 1200
+  },
+  "packages": ["SOT-223", "TO-252"],
+  "features": ["Fixed output"],
+  "adjustable_output": false,
+  "datasheet_url": ""
+};
+
+document.getElementById("json-input").value = JSON.stringify(DUMMY_JSON, null, 2);
+
+// Load cache on page load
+loadCache();
+
+// ── Pipeline runner ───────────────────────────────────────────────────────────
+async function runPipeline() {
+  const btn     = document.getElementById("run-btn");
+  const textarea = document.getElementById("json-input");
+  const jsonErr  = document.getElementById("json-error");
+
+  // Parse JSON
+  let componentJson;
+  try {
+    componentJson = JSON.parse(textarea.value);
+    textarea.classList.remove("error-border");
+    jsonErr.style.display = "none";
+  } catch (e) {
+    textarea.classList.add("error-border");
+    jsonErr.textContent = "Invalid JSON: " + e.message;
+    jsonErr.style.display = "block";
+    return;
+  }
+
+  // Loading state
+  btn.disabled = true;
+  btn.classList.add("loading");
+  btn.querySelector(".btn-text").textContent = "RUNNING PIPELINE…";
+  setStatus("info", "⟳ Running pipeline: query → Mouser search → filter → score → cache…");
+  document.getElementById("results-section").style.display = "none";
+
+  const payload = {
+    component_json: componentJson,
+    use_llm_query:  document.getElementById("llm-query").checked,
+    require_stock:  document.getElementById("require-stock").checked,
+    top_n:          parseInt(document.getElementById("top-n").value),
+  };
+
+  try {
+    const resp = await fetch(`${API_BASE}/api/recommend`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    if (!resp.ok) {
+      const err = await resp.json().catch(() => ({}));
+      throw new Error(err.detail || `HTTP ${resp.status}`);
+    }
+
+    const data = await resp.json();
+    renderResults(data);
+    loadCache();
+
+  } catch (err) {
+    setStatus("err", "✕ Error: " + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove("loading");
+    btn.querySelector(".btn-text").textContent = "▶ RUN PIPELINE";
+  }
+}
+
+// ── Render results ────────────────────────────────────────────────────────────
+function renderResults(data) {
+  const section = document.getElementById("results-section");
+  const metaRow = document.getElementById("meta-row");
+  const header  = document.getElementById("results-header");
+  const list    = document.getElementById("results-list");
+
+  section.style.display = "block";
+
+  // Error state
+  if (data.error && (!data.results || data.results.length === 0)) {
+    setStatus("err", "✕ " + data.error);
+    list.innerHTML = `<div class="empty-state">
+      <div class="icon">⚠</div>
+      <p>${escHtml(data.error)}</p>
+    </div>`;
+    metaRow.innerHTML = "";
+    header.textContent = "";
+    return;
+  }
+
+  // Meta chips
+  const cacheChip = data.cached
+    ? `<div class="meta-chip cached-chip">⚡ CACHED — instant</div>`
+    : `<div class="meta-chip">● FRESH RESULT</div>`;
+
+  metaRow.innerHTML = `
+    ${cacheChip}
+    <div class="meta-chip">Query: <span>${escHtml(data.query_string)}</span></div>
+    <div class="meta-chip">Found: <span>${data.total_found}</span> parts</div>
+    <div class="meta-chip">After filter: <span>${data.after_filter}</span></div>
+    ${data.hit_count > 0 ? `<div class="meta-chip">Cache hits: <span>${data.hit_count}</span></div>` : ""}
+  `;
+
+  if (data.error) {
+    setStatus("warn", "⚠ " + data.error + " — showing partial results.");
+  } else if (data.cached) {
+    setStatus("ok", `⚡ Served from cache · ${data.results.length} alternatives found`);
+  } else {
+    setStatus("ok", `✓ Pipeline complete · ${data.results.length} alternatives ranked`);
+  }
+
+  header.textContent = `// TOP ${data.results.length} ALTERNATIVES`;
+
+  if (!data.results || data.results.length === 0) {
+    list.innerHTML = `<div class="empty-state">
+      <div class="icon">🔍</div>
+      <p>No matching alternatives found.</p>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = data.results.map((p, i) => renderCard(p, i + 1)).join("");
+}
+
+function renderCard(p, rank) {
+  const score = p.score_total ?? 0;
+  const elec  = p.score_electrical ?? 0;
+  const stock = p.score_stock ?? 0;
+  const price = p.score_price ?? 0;
+
+  // SVG ring: circumference of r=22 circle = 138.2
+  const C = 138.2;
+  const offset = C - (score / 100) * C;
+  const ringColor = score >= 70 ? "var(--accent)" : score >= 45 ? "var(--warn)" : "var(--danger)";
+
+  const priceStr = p.price_usd != null
+    ? `<div class="price-val"><span class="currency">USD </span>${p.price_usd.toFixed(2)}</div>`
+    : `<div class="price-val" style="color:var(--muted)">— No price</div>`;
+
+  const stockStr = p.stock != null
+    ? `<div class="stock-val"><span class="qty">${p.stock.toLocaleString()}</span> in stock</div>`
+    : `<div class="stock-val">Stock unknown</div>`;
+
+  const buyBtn = p.product_url
+    ? `<a class="btn-buy" href="${escHtml(p.product_url)}" target="_blank" rel="noopener">
+        BUY ON MOUSER
+        <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 6h10M6 1l5 5-5 5"/>
+        </svg>
+      </a>`
+    : `<span style="color:var(--muted);font-size:12px;font-family:var(--mono);">No link available</span>`;
+
+  const dsBtn = p.datasheet_url
+    ? `<a class="btn-buy" href="${escHtml(p.datasheet_url)}" target="_blank" rel="noopener" style="border-color:var(--muted);color:var(--muted);font-size:11px;padding:5px 10px;">
+        DATASHEET ↗
+      </a>`
+    : "";
+
+  const rankClass = `rank-${Math.min(rank, 5)}`;
+
+  return `
+  <div class="part-card">
+    <div class="rank-badge ${rankClass}">#${rank}</div>
+
+    <div class="card-top">
+      <div>
+        <div class="mpn">${escHtml(p.mpn || "Unknown MPN")}</div>
+        <div class="manufacturer">${escHtml(p.manufacturer || "")}</div>
+      </div>
+
+      <div class="score-ring">
+        <svg viewBox="0 0 56 56">
+          <circle class="track" cx="28" cy="28" r="22"/>
+          <circle class="fill" cx="28" cy="28" r="22"
+            stroke="${ringColor}"
+            stroke-dasharray="${C}"
+            stroke-dashoffset="${offset.toFixed(1)}"/>
+        </svg>
+        <div class="label" style="color:${ringColor}">${score}</div>
+      </div>
+    </div>
+
+    <div class="card-desc">${escHtml(p.description || "No description available.")}</div>
+
+    <div class="score-breakdown">
+      <div class="score-pill pill-elec">⚡ Electrical: ${elec}/60</div>
+      <div class="score-pill pill-stock">📦 Stock: ${stock}/20</div>
+      <div class="score-pill pill-price">💲 Price: ${price}/20</div>
+    </div>
+
+    ${p.score_rationale ? `<div class="rationale">${escHtml(p.score_rationale)}</div>` : ""}
+
+    <div class="card-bottom">
+      <div class="price-stock">
+        ${priceStr}
+        ${stockStr}
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${dsBtn}
+        ${buyBtn}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ── Cache UI ──────────────────────────────────────────────────────────────────
+async function loadCache() {
+  try {
+    const resp = await fetch(`${API_BASE}/api/cache`);
+    const data = await resp.json();
+    const el   = document.getElementById("cache-list");
+
+    if (!data.entries || data.entries.length === 0) {
+      el.innerHTML = `<div style="color:var(--muted);font-size:12px;padding:8px 0;">No cached queries yet.</div>`;
+      return;
+    }
+
+    el.innerHTML = data.entries.map(e => `
+      <div class="cache-entry">
+        <div>
+          <span class="cache-mpn">${escHtml(e.component_name || "Unknown")} · ${escHtml(e.component_type || "")}</span>
+          <div style="color:var(--muted);font-size:11px;font-family:var(--mono);margin-top:2px;">
+            Query: "${escHtml(e.query_string)}"
+          </div>
+        </div>
+        <div class="cache-meta">
+          Hits: ${e.hit_count} &nbsp;|&nbsp; ${new Date(e.created_at).toLocaleString()}
+        </div>
+      </div>
+    `).join("");
+  } catch (err) {
+    console.error("Failed to load cache:", err);
+  }
+}
+
+async function clearCache() {
+  if (!confirm("Clear all cached results?")) return;
+  try {
+    const resp = await fetch(`${API_BASE}/api/cache`, { method: "DELETE" });
+    const data = await resp.json();
+    setStatus("warn", `🗑 ${data.message}`);
+    loadCache();
+  } catch (err) {
+    setStatus("err", "Failed to clear cache: " + err.message);
+  }
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function setStatus(type, msg) {
+  const bar = document.getElementById("status-bar");
+  bar.className = `status-bar ${type} visible`;
+  bar.textContent = msg;
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+</script>
+</body>
+</html>
